@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import WeatherCard from "./WeatherCard"
 import axios from "axios"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const DashBoard = () => {
   const [weatherData, setWeatherData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -18,10 +20,12 @@ const DashBoard = () => {
       setLoading(true)
       setError(null)
       try {
-        // const response = await axios.get("http://localhost:5000/weather")
         const response = await axios.get(
-          `http://localhost:5000/weather?page=${page}&limit=${limit}`
+          `${API_BASE_URL}/weather?page=${page}&limit=${limit}`
         )
+        // const response = await axios.get(
+        //   `http://localhost:5000/weather?page=${page}&limit=${limit}`
+        // )
         const payload = response.data
         setWeatherData(payload.data || [])
         setTotalPages(payload.totalPages || 1)

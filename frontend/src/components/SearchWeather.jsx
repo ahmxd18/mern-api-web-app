@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const SearchWeather = () => {
   const [cityName, setCityName] = useState("")
   const [cityData, setCityData] = useState(null)
@@ -14,9 +16,12 @@ const SearchWeather = () => {
     if (!cityName) return
     setIsLoading(true)
     try {
-      const response = await axios.post("http://localhost:5000/getWeather", {
+      const response = await axios.post(`${API_BASE_URL}/getWeather`, {
         cityName,
       })
+      // const response = await axios.post("http://localhost:5000/getWeather", {
+      //   cityName,
+      // })
       setCityData(response.data)
       setCityName("")
       setError("")
